@@ -100,6 +100,15 @@ export const constantRouterMap = [{
           title: '测试报告',
           icon: 'tree'
         }
+      },
+      {
+        path: 'todo',
+        name: 'todo',
+        component: _import('todo/index'),
+        meta: {
+          title: 'todo',
+          icon: 'tree'
+        }
       }
     ]
   },
