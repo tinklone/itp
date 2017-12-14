@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { getList } from "@/api/project";
+import { getList , save} from "@/api/project";
 import { mapGetters } from "vuex";
 
 
@@ -166,7 +166,10 @@ export default {
       });
     },
     onSubmit() {
-      this.$message('项目添加成功');
+      save(this.form.name,this.form.desc).then(response => {
+        this.$message('项目添加成功');
+        this.fetchData();
+      });
       this.dialogFormVisible = false;
     },
   }

@@ -15,3 +15,14 @@ export function getInfo(project_id) {
     params:{project_id}
   })
 }
+
+export function save(name, desc) {
+  return request({
+    url: '/project/save',
+    method: 'post',
+    data: {
+      name,
+      desc
+    }
+  })
+}

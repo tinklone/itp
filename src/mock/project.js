@@ -2,7 +2,7 @@ import {
   param2Obj
 } from '@/utils'
 
-const projectlist = [{
+const projectList = [{
   "id": "460000200511072770",
   "title": "微信开放平台接口",
   "status": "draft",
@@ -41,12 +41,35 @@ const projectInfoMap = {
   }
 }
 
+const project_list = JSON.parse(window.localStorage.getItem('projectlist')) || projectList
+const project_map = JSON.parse(window.localStorage.getItem('projectmap')) || projectInfoMap
+
 
 export default {
+  save: config => {
+    const project_info = JSON.parse(config.body)
+    project_info['region'] = 'app'
+    
+    const project_id = Date.now().toString()
+    const proinfo = {
+      "id": project_id,
+      "title": project_info['name'],
+      "status": "published",
+      "author": "maxlong",
+      "display_time": "2017-02-19 05:31:39",
+      "pageviews": 3337
+    }
+    project_list.push(proinfo)
+    project_map[project_id] = project_info
+    window.localStorage.setItem('projectmap', JSON.stringify(project_map))
+    window.localStorage.setItem('projectlist', JSON.stringify(project_list))
+    // const { username } = JSON.parse(config.body)
+    return {"code":0,"data":{},"message":"保存成功"}
+  },
   getList: () => ({
     "code": 0,
     "data": {
-      "items": projectlist
+      "items": project_list
     }
   }),
   getInfo: config => {
@@ -55,7 +78,7 @@ export default {
     } = param2Obj(config.url)
     return {
       "code": 0,
-      "data": projectInfoMap[project_id]
+      "data": project_map[project_id]
     }
   }
 }
