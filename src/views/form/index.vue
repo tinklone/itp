@@ -68,7 +68,7 @@ export default {
       });
     },
     onSubmit() {
-      this.$message('submit!')
+      this.$message('sucess!')
     },
     onCancel() {
       this.$message({
