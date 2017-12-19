@@ -26,3 +26,14 @@ export function save(name, desc) {
     }
   })
 }
+
+export function saveapi(baseinfo,params) {
+  return request({
+    url: '/api/save',
+    method: 'post',
+    data: {
+      baseinfo,
+      params
+    }
+  })
+}

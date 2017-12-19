@@ -66,3 +66,12 @@ a:hover {
     margin-bottom: -1px;
   }
 }
+
+.new-input {
+  padding: 0px;
+  height: 40px;
+  border: none;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+  outline: none;
+}

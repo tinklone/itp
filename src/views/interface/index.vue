@@ -1,48 +1,104 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="80px">
-  <el-form-item label="项目名称">
-    <el-input v-model="form.name"></el-input>
-  </el-form-item>
-  <el-form-item label="项目类型">
-    <el-select v-model="form.region" placeholder="请选择项目类型">
-      <el-option label="移动端" value="app"></el-option>
-      <el-option label="PC" value="pc"></el-option>
-    </el-select>
-  </el-form-item>
-  <el-form-item label="结束时间">
-    <el-col :span="11">
-      <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-    </el-col>
-    <el-col class="line" :span="2" align="center">-</el-col>
-    <el-col :span="11">
-      <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-    </el-col>
-  </el-form-item>
-  <el-form-item label="项目角色">
-    <el-checkbox-group v-model="form.type">
-      <el-checkbox label="管理员" name="type"></el-checkbox>
-      <el-checkbox label="开发人员" name="type"></el-checkbox>
-      <el-checkbox label="测试人员" name="type"></el-checkbox>
-      <el-checkbox label="运维" name="type"></el-checkbox>
-    </el-checkbox-group>
-  </el-form-item>
-  <el-form-item label="项目说明">
-    <el-input type="textarea" v-model="form.desc"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmit">保存</el-button>
-    <el-button @click="dialogFormVisible = false" >取消</el-button>
-  </el-form-item>
-</el-form>
+      <el-form-item prop="name" label="接口地址">
+        <input class="new-input" autofocus autocomplete="off" placeholder="api url" size="100">
+      </el-form-item>
+      <el-form-item prop="name" label="接口名称">
+        <input class="new-input" autofocus autocomplete="off" placeholder="api name" size="100">
+      </el-form-item>
+      <el-form-item label="请求方式">
+        <el-select v-model="form.region" placeholder="请选择项目类型">
+          <el-option label="GET" value="get"></el-option>
+          <el-option label="POST" value="post"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-table :data="tableData" class="tb-edit" style="width: 50%" highlight-current-row @row-click="handleCurrentChange">
+        <el-table-column label="参数名" width="180">
+          <template scope="scope">
+            <el-input size="small" v-model="scope.row.date" placeholder="请输入key"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="参数值" width="180">
+          <template scope="scope">
+            <el-input size="small" v-model="scope.row.name" placeholder="请输入value"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column prop="address" label="参数类型" width="180">
+          <template scope="scope">
+            <el-select size="small" v-model="scope.row.ktype" placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template scope="scope">
+            <!--<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
+            <i class="el-icon-circle-plus" @click="handleAdd()"></i>
+            <i class="el-icon-circle-close" @click="handleDelete(scope.$index, scope.row)"></i>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-form-item label="接口标签">
+        <el-checkbox-group v-model="form.type">
+          <el-checkbox label="标签1" name="type"></el-checkbox>
+          <el-checkbox label="标签2" name="type"></el-checkbox>
+          <el-checkbox label="标签3" name="type"></el-checkbox>
+          <el-checkbox label="标签4" name="type"></el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="接口说明">
+        <el-input type="textarea" v-model="form.desc" style="width: 600px;"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script>
-import { getInfo } from "@/api/project";
+import MDinput from '@/components/MDinput'
+import { getInfo,saveapi } from '@/api/project'
 export default {
+  components: {
+    MDinput
+  },
   data() {
     return {
+      tableData: [
+        {
+          date: '',
+          name: '',
+          address: '',
+          ktype: ''
+        }
+      ],
+      options: [
+        {
+          value: '0',
+          label: 'int'
+        },
+        {
+          value: '1',
+          label: 'string'
+        },
+        {
+          value: '2',
+          label: 'bool'
+        },
+        {
+          value: '3',
+          label: 'email'
+        },
+        {
+          value: '4',
+          label: 'name'
+        }
+      ],
+      value: '',
       form: {
         name: '',
         region: '',
@@ -57,32 +113,55 @@ export default {
     }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     fetchData() {
-      this.listLoading = true;
+      this.listLoading = true
       getInfo(this.$route.params.project_id).then(response => {
-        this.form = response.data;
-        this.listLoading = false;
-      });
+        this.form = response.data
+        this.listLoading = false
+      })
     },
     onSubmit() {
-      this.$message('sucess!')
+      saveapi(this.tableData).then(response => {
+        this.$message('success');
+      })
     },
     onCancel() {
       this.$message({
         message: 'cancel!',
         type: 'warning'
       })
+    },
+    handleCurrentChange(row, event, column) {
+      console.log(row, event, column, event.currentTarget)
+    },
+    handleAdd(index, row) {
+      var item = {
+        date: '',
+        name: '',
+        address: ''
+      }
+      this.tableData.push(item)
+    },
+    handleDelete(index, row) {
+      this.tableData.splice(index)
     }
   }
 }
 </script>
 
 <style scoped>
-.line{
+.line {
   text-align: center;
+}
+
+.tb-edit .el-input {
+  display: block;
+}
+.tb-edit .current-row .el-input {
+  display: block;
 }
 </style>
 
