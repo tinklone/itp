@@ -71,6 +71,15 @@ export const constantRouterMap = [{
           title: '接口信息',
           icon: 'table'
         }
+      },
+      {
+        path: 'apilist',
+        name: '接口列表',
+        component: _import('interface/list'),
+        meta: {
+          title: '接口列表',
+          icon: 'table'
+        }
       }
     ]
   },

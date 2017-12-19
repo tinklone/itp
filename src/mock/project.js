@@ -43,7 +43,16 @@ const projectInfoMap = {
 
 const project_list = JSON.parse(window.localStorage.getItem('projectlist')) || projectList
 const project_map = JSON.parse(window.localStorage.getItem('projectmap')) || projectInfoMap
+const apimap = JSON.parse(window.localStorage.getItem('apimap')) ||  {}
+const apilist = []
+for(var key in apimap){
+  console.log(key)
+  var info = apimap[key]['baseinfo']
+  console.log(info)
+  info['id'] = key
+  apilist.push(info)
 
+}
 
 export default {
   save: config => {
@@ -66,10 +75,28 @@ export default {
     // const { username } = JSON.parse(config.body)
     return {"code":0,"data":{},"message":"保存成功"}
   },
+
+  saveapi: config => {
+    var api_info = JSON.parse(config.body)
+    
+    var api_id = Date.now().toString()
+    apimap[api_id] = api_info
+
+    window.localStorage.setItem('apimap', JSON.stringify(apimap))
+    // const { username } = JSON.parse(config.body)
+    return {"code":0,"data":{},"message":"保存成功"}
+  },
+
   getList: () => ({
     "code": 0,
     "data": {
       "items": project_list
+    }
+  }),
+  getApiList: () => ({
+    "code": 0,
+    "data": {
+      "items": apilist
     }
   }),
   getInfo: config => {

@@ -37,3 +37,11 @@ export function saveapi(baseinfo,params) {
     }
   })
 }
+
+export function getApiList(params) {
+  return request({
+    url: '/api/list',
+    method: 'get',
+    params
+  })
+}
