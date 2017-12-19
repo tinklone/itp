@@ -66,9 +66,18 @@ export const constantRouterMap = [{
       {
         path: 'api',
         name: '接口信息',
-        component: _import('table/index'),
+        component: _import('interface/index'),
         meta: {
           title: '接口信息',
+          icon: 'table'
+        }
+      },
+      {
+        path: 'apilist',
+        name: '接口列表',
+        component: _import('interface/list'),
+        meta: {
+          title: '接口列表',
           icon: 'table'
         }
       }
@@ -98,6 +107,15 @@ export const constantRouterMap = [{
         component: _import('tree/index'),
         meta: {
           title: '测试报告',
+          icon: 'tree'
+        }
+      },
+      {
+        path: 'todo',
+        name: 'todo',
+        component: _import('todo/index'),
+        meta: {
+          title: 'todo',
           icon: 'tree'
         }
       }

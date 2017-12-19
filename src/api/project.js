@@ -15,3 +15,33 @@ export function getInfo(project_id) {
     params:{project_id}
   })
 }
+
+export function save(name, desc) {
+  return request({
+    url: '/project/save',
+    method: 'post',
+    data: {
+      name,
+      desc
+    }
+  })
+}
+
+export function saveapi(baseinfo,params) {
+  return request({
+    url: '/api/save',
+    method: 'post',
+    data: {
+      baseinfo,
+      params
+    }
+  })
+}
+
+export function getApiList(params) {
+  return request({
+    url: '/api/list',
+    method: 'get',
+    params
+  })
+}
