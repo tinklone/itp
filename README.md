@@ -7,7 +7,7 @@
 - [学习Vue.js](https://cn.vuejs.org/)
 - [学习elementUI](http://element-cn.eleme.io/#/zh-CN)
 - [学习flask](http://flask.pocoo.org/)
-- [廖雪峰pythobn基础和git基础](https://www.liaoxuefeng.com/)
+- [廖雪峰python基础和git基础](https://www.liaoxuefeng.com/)
 
 ## 装备篇
 ### mac效率工具
