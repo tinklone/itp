@@ -27,7 +27,7 @@ Mock.mock(/\/api\/detail/, 'get', projectAPI.getApiList)
 //接口相关
 Mock.mock(/\/api\/save/, 'post', apiApi.getApiList)
 
-Mock.mock(/\/api\/detail/, 'get', 'api.json')
+//Mock.mock(/\/api\/detail/, 'get', 'api.json')
 
 // 表格相关
 Mock.mock(/\/table\/list/, 'get', tableAPI.getList)
