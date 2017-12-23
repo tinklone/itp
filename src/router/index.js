@@ -81,6 +81,16 @@ export const constantRouterMap = [{
           icon: 'table'
         }
       }
+      ,
+      {
+        path: 'apidetail',
+        name: '接口列表',
+        component: _import('interface/detail'),
+        meta: {
+          title: '接口详情',
+          icon: 'eye'
+        }
+      }
     ]
   },
   {

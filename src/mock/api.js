@@ -77,7 +77,7 @@ export default {
     return {"code":0,"data":{},"message":"保存成功"}
   },
 
-  saveapi: config => {
+  saveApi: config => {
     var api_info = JSON.parse(config.body)
     
     var api_id = Date.now().toString()

@@ -45,3 +45,11 @@ export function getApiList(params) {
     params
   })
 }
+
+export function getApiDetail(params) {
+  return request({
+    url: '/api/detail',
+    method: 'get',
+    params
+  })
+}
