@@ -48,7 +48,7 @@ export function getApiList(params) {
 
 export function getApiDetail(params) {
   return request({
-    url: '/api/detail',
+    url: '/api/test',
     method: 'get',
     params
   })

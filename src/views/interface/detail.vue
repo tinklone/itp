@@ -8,17 +8,17 @@
       </el-table-column>
       <el-table-column label="接口地址">
         <template slot-scope="scope">
-          {{scope.row.api_url}}
+          {{scope.row.interAddr}}
         </template>
       </el-table-column>
       <el-table-column label="接口名称" width="300" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.api_name}}</span>
+          <span>{{scope.row.interName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="请求方式" width="300" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.api_method}}</span>
+          <span>{{scope.row.method}}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { getApiDetail } from '@/api/project'
+import { getApiDetail } from '@/api/interface'
 
 export default {
   data() {
