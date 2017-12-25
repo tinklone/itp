@@ -21,14 +21,15 @@ Mock.mock(/\/user\/info\.*/, 'get', loginAPI.getUserInfo)
 Mock.mock(/\/project\/list/, 'get', projectAPI.getList)
 Mock.mock(/\/project\/info/, 'get', projectAPI.getInfo)
 Mock.mock(/\/project\/save/, 'post', projectAPI.save)
-Mock.mock(/\/api\/save/, 'post', projectAPI.saveapi)
-Mock.mock(/\/api\/list/, 'get', projectAPI.getApiList)
-Mock.mock(/\/api\/detail/, 'get', projectAPI.getApiList)
+
+Mock.mock(/\/api\/save/, 'post', apiApi.saveapi)
+Mock.mock(/\/api\/list/, 'get', apiApi.getApiList)
+Mock.mock(/\/api\/detail/, 'get', apiApi.getApiList)
 
 //接口相关
-Mock.mock(/\/api\/save/, 'post', apiApi.getApiList)
+// Mock.mock(/\/api\/save/, 'post', apiApi.saveapi)
 
-//Mock.mock(/\/api\/detail/, 'get', 'api.json')
+// Mock.mock(/\/api\/detail/, 'get', apiApi.getApiList)
 
 // 表格相关
 Mock.mock(/\/table\/list/, 'get', tableAPI.getList)

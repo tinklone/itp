@@ -53,6 +53,7 @@ export default {
       this.listLoading = true
       getApiList(this.listQuery).then(response => {
         this.list = response.data.items
+        console.log('get data')
         this.listLoading = false
       })
     }
