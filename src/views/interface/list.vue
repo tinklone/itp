@@ -1,32 +1,81 @@
 <template>
   <div class="app-container">
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border highlight-current-row>
+    <div class="filter-container">
+      <el-input style="width: 200px;" placeholder="接口名称/请求地址" size="mini"></el-input>
+      <el-button type="primary" icon="search" size="mini" plain="">搜索</el-button>
+      <el-button @click='toInter' type="primary" style="margin-left:600px;">添加接口</el-button>
+    </div>
+    <div>
+      <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border highlight-current-row>
       <el-table-column align="center" label='编号' width="160">
         <template slot-scope="scope">
           {{scope.row.id}}
         </template>
       </el-table-column>
-      <el-table-column label="接口地址">
+      <el-table-column label="接口地址" align="center">
         <template slot-scope="scope">
           {{scope.row.api_url}}
         </template>
       </el-table-column>
-      <el-table-column label="接口名称" width="300" align="center">
+      <el-table-column label="接口名称" width="160" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.api_name}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="请求方式" width="300" align="center">
+      <el-table-column label="请求方式" width="160" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.api_method}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="测试用例数" width="160" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.api_method}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="测试任务数" width="160" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.api_method}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="接口状态" width="160" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.api_method}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否覆盖" width="160" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.api_method}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建人" width="160" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.api_method}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="160" align="center">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click='removeRow(scope.row.id)' plain>删除</el-button>
+          <!-- <el-dropdown>
+            <span class="el-dropdown-link">
+              操作<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-button type="primary" size="mini" plain>操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item disabled>双皮奶</el-dropdown-item>
+              <el-dropdown-item divided>编辑</el-dropdown-item>
+              <el-dropdown-item @click='removeRow($scope.row.id)' divided>删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown> -->
+        </template>
+      </el-table-column>
     </el-table>
+  </div> 
   </div>
 </template>
 
 <script>
-import { getApiList } from '@/api/project'
+import { getApiList,deleteapi } from '@/api/project'
+
 
 export default {
   data() {
@@ -50,11 +99,26 @@ export default {
   },
   methods: {
     fetchData() {
+      location.reload
       this.listLoading = true
+      //location.reload();
       getApiList(this.listQuery).then(response => {
         this.list = response.data.items
         this.listLoading = false
       })
+    },
+    toInter(){
+      var id = this.$route.params.project_id
+      this.$router.replace({name:'接口信息',params:{'project_id':id}})
+    },
+    removeRow(id){
+      location.reload
+      this.listLoading = true
+      //location.reload();
+      deleteapi(id);
+      
+      this.listLoading = false;
+      
     }
   }
 }

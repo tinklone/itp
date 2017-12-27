@@ -12,7 +12,13 @@ import {
     "interAddr": "//dasdasd",
     "interName": "zhuc",
     "method": "post"
-  }]
+  }, {
+    "id": "3",
+    "interAddr": "//dasdasd",
+    "interName": "zhuc",
+    "method": "post"
+  }
+]
 
 const interface_list = JSON.parse(window.localStorage.getItem('interfaceList')) || interfaceList
 

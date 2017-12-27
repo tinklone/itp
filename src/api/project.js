@@ -38,6 +38,14 @@ export function saveapi(baseinfo,params) {
   })
 }
 
+export function deleteapi(id) {
+  return request({
+    url: '/api/delete',
+    method: 'get',
+    params:{id}
+  })
+}
+
 export function getApiList(params) {
   return request({
     url: '/api/list',

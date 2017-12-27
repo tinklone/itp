@@ -52,7 +52,7 @@ export const constantRouterMap = [{
     name: 'project',
     meta: {
       title: '项目管理',
-      icon: 'example'
+      icon: 'help'
     },
     children: [{
         path: 'info',

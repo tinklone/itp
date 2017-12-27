@@ -126,6 +126,7 @@ export default {
     onSubmit() {
       saveapi(this.form,this.tableData).then(response => {
         this.$message('success');
+        this.fetchData();
       })
     },
     onCancel() {
