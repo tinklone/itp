@@ -89,10 +89,11 @@ export default {
   },
 
   deleteapi: config => {
-    console.log(config.body)
-    var api_id = JSON.parse(config.body)
-
+    console.log(config.url)
+    var api_id = param2Obj(config.url).id
+    console.log(api_id)
     delete apimap[api_id]
+    window.localStorage.setItem('apimap', JSON.stringify(apimap))
     // const { username } = JSON.parse(config.body)
     return {"code":0,"data":{"items": apilist}}
   },
