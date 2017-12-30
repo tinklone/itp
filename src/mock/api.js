@@ -73,4 +73,14 @@ export default {
       items: apilist,
     },
   }),
+
+  deleteApi: config => {
+    var api_id = param2Obj(config.url).id
+    delete apimap[api_id]
+    window.localStorage.setItem('apimap', JSON.stringify(apimap))
+    // const { username } = JSON.parse(config.body)
+    //window.localStorage.removeItem(apimap.api_id)
+    return { "code": 0, "data": {}, "message": "删除成功" }
+  },
+
 }

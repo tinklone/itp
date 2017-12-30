@@ -22,9 +22,10 @@ Mock.mock(/\/project\/list/, 'get', projectAPI.getList)
 Mock.mock(/\/project\/info/, 'get', projectAPI.getInfo)
 Mock.mock(/\/project\/save/, 'post', projectAPI.save)
 
-Mock.mock(/\/api\/save/, 'post', apiApi.saveapi)
+Mock.mock(/\/api\/save/, 'post', apiApi.saveApi)
 Mock.mock(/\/api\/list/, 'get', apiApi.getApiList)
-Mock.mock(/\/api\/detail/, 'get', apiApi.getApiList)
+Mock.mock(/\/api\/detail/, 'get', apiApi.getApiDetail)
+Mock.mock(/\/api\/delete/, 'get', apiApi.deleteApi)
 
 //接口相关
 // Mock.mock(/\/api\/save/, 'post', apiApi.saveapi)

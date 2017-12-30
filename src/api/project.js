@@ -46,10 +46,18 @@ export function getApiList(params) {
   })
 }
 
-export function getApiDetail(params) {
+export function getApiDetail(api_id) {
   return request({
-    url: '/api/detail',
+    url: '/api/:api_id',
     method: 'get',
-    params
+    params:{api_id}
+  })
+}
+
+export function deleteApi(id) {
+  return request({
+    url: '/api/delete',
+    method: 'get',
+    params:{id}
   })
 }

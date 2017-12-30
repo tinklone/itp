@@ -83,9 +83,9 @@ export const constantRouterMap = [{
       }
       ,
       {
-        path: 'apidetail',
+        path: 'api/:id',
         name: '接口详情',
-        component: _import('interface/detail'),
+        component: _import('interface/index'),
         meta: {
           title: '接口详情',
           icon: 'eye'

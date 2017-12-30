@@ -21,12 +21,19 @@
           <span>{{scope.row.api_method}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="操作" width="300" align="center">
+        <template slot-scope="scope">
+          <el-button type="primary" @click="onUpdate(scope.row.id)">修改</el-button>
+          <!-- <a :href="'#/'+ scope.row.id" >修改</a> -->
+          <el-button type="primary" @click="onDelete(scope.row.id)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { getApiList } from '@/api/project'
+import { getApiList,deleteApi } from '@/api/project'
 
 export default {
   data() {
@@ -56,7 +63,19 @@ export default {
         console.log('get data')
         this.listLoading = false
       })
-    }
+    },
+    onDelete(id) {
+      this.listLoading = true
+      deleteApi(id).then(response => {
+        this.$message('success')
+        this.listLoading = false
+      })
+      this.fetchData()
+    },
+    onUpdate(item) {
+      console.log(item);
+      alert(item.id)
+    },
   }
 }
 </script>
