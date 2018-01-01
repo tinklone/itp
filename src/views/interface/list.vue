@@ -27,7 +27,7 @@
           <span>{{scope.row.api_method}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="测试用例数" width="160" align="center">
+      <!-- <el-table-column label="测试用例数" width="160" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.api_method}}</span>
         </template>
@@ -51,7 +51,7 @@
         <template slot-scope="scope">
           <span>{{scope.row.api_method}}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="操作" width="160" align="center">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click='removeRow(scope.row.id)' plain>删除</el-button>
@@ -112,13 +112,11 @@ export default {
       this.$router.replace({name:'接口信息',params:{'project_id':id}})
     },
     removeRow(id){
-      location.reload
-      this.listLoading = true
-      //location.reload();
-      deleteapi(id);
-      
-      this.listLoading = false;
-      
+      deleteapi(id).then(response => {
+        console.log(response.message)
+        this.$message(response.message);
+        this.fetchData();
+      })
     }
   }
 }

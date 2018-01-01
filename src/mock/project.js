@@ -43,16 +43,17 @@ const projectInfoMap = {
 
 const project_list = JSON.parse(window.localStorage.getItem('projectlist')) || projectList
 const project_map = JSON.parse(window.localStorage.getItem('projectmap')) || projectInfoMap
-var apimap = JSON.parse(window.localStorage.getItem('apimap')) ||  {}
+// var apimap = JSON.parse(window.localStorage.getItem('apimap')) ||  {}
+var apimap = {}
 var apilist = []
-for(var key in apimap){
-  console.log(key)
-  var info = apimap[key]['baseinfo']
-  console.log(info)
-  info['id'] = key
-  apilist.push(info)
+// for(var key in apimap){
+//   console.log(key)
+//   var info = apimap[key]['baseinfo']
+//   console.log(info)
+//   info['id'] = key
+//   apilist.push(info)
 
-}
+// }
 console.log(JSON.stringify(apilist))
 
 export default {
@@ -95,7 +96,7 @@ export default {
     delete apimap[api_id]
     window.localStorage.setItem('apimap', JSON.stringify(apimap))
     // const { username } = JSON.parse(config.body)
-    return {"code":0,"data":{"items": apilist}}
+    return {"code":0,"data":{},"message":"删除成功"}
   },
 
   getList: () => ({
@@ -104,12 +105,28 @@ export default {
       "items": project_list
     }
   }),
-  getApiList: () => ({
+  // getApiList: () => ({
+  //   "code": 0,
+  //   "data": {
+  //     "items": apilist
+  //   }
+  // }),
+  getApiList: () => {
+    apimap = JSON.parse(window.localStorage.getItem('apimap'))||{}
+    apilist = []
+    for(var key in apimap){
+      console.log(key)
+      var info = apimap[key]['baseinfo']
+      console.log(info)
+      info['id'] = key
+      apilist.push(info)    
+    }
+    return {
     "code": 0,
     "data": {
       "items": apilist
     }
-  }),
+  }},
   getInfo: config => {
     const {
       project_id

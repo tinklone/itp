@@ -15,17 +15,17 @@
       </el-form-item>
       <el-table :data="tableData" class="tb-edit" style="width: 50%" highlight-current-row @row-click="handleCurrentChange">
         <el-table-column label="参数名" width="180">
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-input size="small" v-model="scope.row.parameter_key" placeholder="请输入key"></el-input>
           </template>
         </el-table-column>
         <el-table-column label="参数值" width="180">
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-input size="small" v-model="scope.row.parameter_value" placeholder="请输入value"></el-input>
           </template>
         </el-table-column>
         <el-table-column prop="address" label="参数类型" width="180">
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-select size="small" v-model="scope.row.parameter_type" placeholder="请选择">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
@@ -33,7 +33,7 @@
           </template>
         </el-table-column>
         <el-table-column label="操作">
-          <template scope="scope">
+          <template slot-scope="scope">
             <!--<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
             <i class="el-icon-circle-plus" @click="handleAdd()"></i>
             <i class="el-icon-circle-close" @click="handleDelete(scope.$index, scope.row)"></i>
