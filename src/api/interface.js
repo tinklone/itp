@@ -7,3 +7,10 @@ export function getApiDetail(params) {
     params
   })
 }
+export function getInterInfo(id) {
+  return request({
+    url: '/api/edit',
+    method: 'get',
+    params:{id}
+  })
+}

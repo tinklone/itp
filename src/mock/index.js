@@ -25,6 +25,7 @@ Mock.mock(/\/api\/delete/, 'get', projectAPI.deleteapi)
 Mock.mock(/\/api\/save/, 'post', projectAPI.saveapi)
 Mock.mock(/\/api\/list/, 'get', projectAPI.getApiList)
 Mock.mock(/\/api\/test/, 'get', itApi.getInterList)
+// Mock.mock(/\/api\/edit/, 'get', projectAPI.getInterInfo)
 
 //接口相关
 //Mock.mock(/\/api\/save/, 'post', apiApi.getApiList)

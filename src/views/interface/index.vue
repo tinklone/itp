@@ -62,6 +62,7 @@
 <script>
 import MDinput from '@/components/MDinput'
 import { getInfo,saveapi } from '@/api/project'
+import { getInterInfo } from '@/api/interface'
 export default {
   components: {
     MDinput
@@ -113,15 +114,28 @@ export default {
     }
   },
   created() {
-    // this.fetchData()
+    //  this.fetchData()
   },
   methods: {
+    // fetchData() {
+    //   this.listLoading = true
+    //   try{
+    //   var tt = this.$route.query.id
+    //   console.log('tt = ',tt)
+    //   getInterInfo(tt).then(response => {
+    //     console.log('---dsadas',response.data)
+    //     this.form = response.data
+    //     this.listLoading = false
+    //     })
+    //   }catch(err){
+    //     getInterInfo('').then(response => {
+    //     console.log('---dsadas',response.data)
+    //     this.form = response.data
+    //     this.listLoading = false
+    //   })      
+    // }},
     fetchData() {
       this.listLoading = true
-      getInfo(this.$route.params.project_id).then(response => {
-        this.form = response.data
-        this.listLoading = false
-      })
     },
     onSubmit() {
       saveapi(this.form,this.tableData).then(response => {
