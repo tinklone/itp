@@ -86,7 +86,19 @@ export default {
 
     window.localStorage.setItem('apimap', JSON.stringify(apimap))
     // const { username } = JSON.parse(config.body)
-    return {"code":0,"data":{},"message":"保存成功"}
+    return {"code":0,"data":{},"message":"新增成功"}
+  },
+  editapi: config => {
+    console.log('config.body = ',config.body)
+    var api_info = JSON.parse(config.body)
+    var api_id = JSON.parse(config.body).id
+    console.log('api_id = ',api_id)
+    console.log('api_info = ',api_info)
+    apimap[api_id] = api_info
+
+    window.localStorage.setItem('apimap', JSON.stringify(apimap))
+    // const { username } = JSON.parse(config.body)
+    return {"code":0,"data":{},"message":"修改成功"}
   },
 
   deleteapi: config => {
@@ -134,6 +146,25 @@ export default {
     return {
       "code": 0,
       "data": project_map[project_id]
+    }
+  },
+  getInterInfo: config => {
+    console.log('config.url = ',config.url)
+    var inter_id = param2Obj(config.url).id
+    console.log('inter_id = ',inter_id)
+    if (inter_id)
+    {
+      console.log('1111')
+    return {
+      "code": 0,
+      "data": apimap[inter_id]['baseinfo']
+    }}
+    else
+    {
+      return {
+        "code": 0,
+        "data": {}
+      }
     }
   }
 }

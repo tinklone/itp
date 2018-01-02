@@ -55,6 +55,7 @@
       <el-table-column label="操作" width="160" align="center">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click='removeRow(scope.row.id)' plain>删除</el-button>
+          <el-button type="primary" size="mini" @click='toInter(scope.row.id)' plain>编辑</el-button>
           <!-- <el-dropdown>
             <span class="el-dropdown-link">
               操作<i class="el-icon-arrow-down el-icon--right"></i>
@@ -67,11 +68,6 @@
             </el-dropdown-menu>
           </el-dropdown> -->          
         </template>
-        </el-table-column>
-        <el-table-column label="操作1" width="160" align="center">
-        <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click='toInter(scope.row.id)' plain>编辑</el-button>
-        </template>
       </el-table-column>
     </el-table>
   </div> 
@@ -80,7 +76,6 @@
 
 <script>
 import { getApiList,deleteapi } from '@/api/project'
-import { getInterInfo } from '@/api/interface'
 
 export default {
   data() {

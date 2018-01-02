@@ -9,8 +9,19 @@ export function getApiDetail(params) {
 }
 export function getInterInfo(id) {
   return request({
-    url: '/api/edit',
+    url: '/api/interinfo',
     method: 'get',
     params:{id}
+  })
+}
+export function editapi(id,baseinfo,params) {
+  return request({
+    url: '/api/edit',
+    method: 'post',
+    data: {
+      id,
+      baseinfo,
+      params
+    }
   })
 }
