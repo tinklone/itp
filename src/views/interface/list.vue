@@ -41,12 +41,12 @@
         <template slot-scope="scope">
           <span>{{scope.row.api_method}}</span>
         </template>
-      </el-table-column>
-      <el-table-column label="是否覆盖" width="160" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.api_method}}</span>
-        </template>
       </el-table-column> -->
+      <el-table-column label="接口类型" width="160" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.type}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="接口说明" width="160" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.desc}}</span>

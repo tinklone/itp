@@ -40,7 +40,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-form-item label="接口标签">
+      <el-form-item label="接口类型">
         <el-checkbox-group v-model="form.type">
           <el-checkbox label="增加" name="type"></el-checkbox>
           <el-checkbox label="修改" name="type"></el-checkbox>
@@ -119,18 +119,15 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      try{
       var tt = this.$route.query.id
       console.log('tt = ',tt)
+      if (tt){
       getInterInfo(tt).then(response => {
         console.log('---dsadas',response.data)
         this.form = response.data
         this.listLoading = false
-        })
-      }catch(err){
-        this.listLoading = false
-      }     
-    },
+        })    
+    }},
     // fetchData() {
     //   this.listLoading = true
     // },
