@@ -42,10 +42,10 @@
       </el-table>
       <el-form-item label="接口标签">
         <el-checkbox-group v-model="form.type">
-          <el-checkbox label="标签1" name="type"></el-checkbox>
-          <el-checkbox label="标签2" name="type"></el-checkbox>
-          <el-checkbox label="标签3" name="type"></el-checkbox>
-          <el-checkbox label="标签4" name="type"></el-checkbox>
+          <el-checkbox label="增加" name="type"></el-checkbox>
+          <el-checkbox label="修改" name="type"></el-checkbox>
+          <el-checkbox label="删除" name="type"></el-checkbox>
+          <el-checkbox label="查询" name="type"></el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="接口说明">
@@ -136,7 +136,7 @@ export default {
     // },
     onSubmit() {
       var tid = this.$route.query.id
-      console.log('tid = ',tid)
+       console.log('tid = ',tid)
       if (!tid){
       saveapi(this.form,this.tableData).then(response => {
         this.$message(response.message);

@@ -46,12 +46,12 @@
         <template slot-scope="scope">
           <span>{{scope.row.api_method}}</span>
         </template>
-      </el-table-column>
-      <el-table-column label="创建人" width="160" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.api_method}}</span>
-        </template>
       </el-table-column> -->
+      <el-table-column label="接口说明" width="160" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.desc}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="160" align="center">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click='removeRow(scope.row.id)' plain>删除</el-button>
