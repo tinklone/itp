@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input style="width: 200px;" placeholder="接口名称/请求地址" size="mini"></el-input>
+      <el-input v-model="ques" style="width: 200px;" placeholder="接口名称/请求地址" size="mini"></el-input>
       <el-button @click='search' type="primary" icon="search" size="mini" plain="">搜索</el-button>
       <el-button @click='toInter("")' type="primary" style="margin-left:600px;">添加接口</el-button>
     </div>
@@ -81,7 +81,9 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      listAf: [],
+      ques:null,
     }
   },
   filters: {
@@ -136,10 +138,35 @@ export default {
       })
     },
     search(){
-      deleteapi(id).then(response => {
-        console.log(response.message)
-        this.$message(response.message);
-        this.fetchData();
+      location.reload
+      this.listLoading = true
+      //location.reload();
+      var myArray=new Array()
+      getApiList(this.listQuery).then(response => {
+        console.log('xxx',response.data.items)
+        myArray = response.data.items
+        //this.listLoading = false
+        
+        console.log('2myArray = ',myArray)
+        if (this.ques){
+          this.listAf = []
+          for (var i in myArray){
+            console.log('i = ',myArray[i])
+            console.log('this.ques = ',this.ques)
+            console.log('myArray[i] = ',myArray[i]['api_url'],myArray[i]['api_name'])
+      // if (this.ques == myArray[i]['api_url'] || this.ques == myArray[i]['api_name'])
+            if (myArray[i]['api_url'].indexOf(this.ques)>-1 || myArray[i]['api_name'].indexOf(this.ques)>-1 )
+            this.listAf.push(myArray[i])
+          }
+        this.list = this.listAf
+        }
+        else{
+          this.list = myArray
+        }
+       
+      console.log('this.listAf = ',this.listAf)
+      
+      this.listLoading = false
       })
     },
   }
