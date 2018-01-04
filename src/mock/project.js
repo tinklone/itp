@@ -80,10 +80,10 @@ export default {
 
   saveapi: config => {
     var api_info = JSON.parse(config.body)
-    
+    console.log('api_info = ',api_info)
     var api_id = Date.now().toString()
     apimap[api_id] = api_info
-
+    console.log('apimap = ',apimap)
     window.localStorage.setItem('apimap', JSON.stringify(apimap))
     // const { username } = JSON.parse(config.body)
     return {"code":0,"data":{},"message":"新增成功"}
