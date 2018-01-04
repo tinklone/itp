@@ -128,18 +128,21 @@ export default {
     onSubmit() {
       var id = this.$route.query.id
       console.log('id is:'+this.$route.query.id)
-      if (id){
-        saveapi(this.form,this.tableData,id).then(response => {
+      saveapi(this.form,this.tableData,id).then(response => {
         this.$message('success');
-      })      
-      }
-      else{
-        saveapi(this.form,this.tableData).then(response => {
-          this.$message('success');
-      })
-      this.fetchData()
-      }
+        this.fetchData()
+        })
+      // if (id){
+      //   saveapi(this.form,this.tableData,id).then(response => {
+      //   this.$message('success');
+      // })      
+      // }
+      // else{
+      //   saveapi(this.form,this.tableData).then(response => {
+      //     this.$message('success');
+      //   })
 
+      // }
     },
     onCancel() {
       this.$message({

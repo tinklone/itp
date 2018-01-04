@@ -70,7 +70,7 @@ export default {
     return { code: 0, data: {}, message: '保存成功' }
   },
 
-  getApiList: () => {   
+  getApiList: () => {
     var apilist = []
     for(var key in apimap){
       console.log(key)
@@ -87,7 +87,6 @@ export default {
 
 
   getApiInfo: config => {
-    //const { id } = param2Obj(config.url) 
     var api_id = param2Obj(config.url).id
     console.log('api_id = ',api_id)
     if (api_id)
