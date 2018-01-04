@@ -61,7 +61,7 @@
 
 <script>
 import MDinput from '@/components/MDinput'
-import { getInfo,saveapi } from '@/api/project'
+import { getApiDetail,saveapi } from '@/api/project'
 export default {
   components: {
     MDinput
@@ -113,19 +113,22 @@ export default {
     }
   },
   created() {
-    // this.fetchData()
+    this.fetchData()
   },
   methods: {
     fetchData() {
+      console.log('id is:'+this.$route.params.id)
       this.listLoading = true
-      getInfo(this.$route.params.project_id).then(response => {
+      getApiDetail(this.$route.params.id).then(response => {
         this.form = response.data
+        console.log('id is:'+this.$route.params.id)
         this.listLoading = false
       })
     },
     onSubmit() {
       saveapi(this.form,this.tableData).then(response => {
         this.$message('success');
+      this.fetchData()
       })
     },
     onCancel() {

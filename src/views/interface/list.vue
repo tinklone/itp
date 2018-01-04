@@ -58,6 +58,9 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
+
+      var apiid = this.$route.query.id
+      console.log('id is:'+this.$route.query.id)
       getApiList(this.listQuery).then(response => {
         this.list = response.data.items
         console.log('get data')
@@ -69,12 +72,15 @@ export default {
       deleteApi(id).then(response => {
         this.$message('success')
         this.listLoading = false
+        this.fetchData()
       })
-      this.fetchData()
+
     },
-    onUpdate(item) {
-      console.log(item);
-      alert(item.id)
+    onUpdate(id) {
+      var project_id = this.$route.params.project_id
+      this.$router.push({name:'接口信息',params:{'project_id':project_id},query: { 'id': id }})
+      //this.$router.push({name:'接口详情',params:{'project_id':project_id,'id': id }})      
+      //getApiDetail(id)
     },
   }
 }

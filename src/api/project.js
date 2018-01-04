@@ -27,14 +27,15 @@ export function save(name, desc) {
   })
 }
 
-export function saveapi(baseinfo,params) {
+export function saveapi(baseinfo,table,id) {
   return request({
     url: '/api/save',
     method: 'post',
     data: {
       baseinfo,
-      params
-    }
+      table
+    },
+    params:{id}
   })
 }
 
@@ -46,11 +47,11 @@ export function getApiList(params) {
   })
 }
 
-export function getApiDetail(api_id) {
+export function getApiDetail(id) {
   return request({
-    url: '/api/:api_id',
+    url: '/api/detail',
     method: 'get',
-    params:{api_id}
+    params:{id}
   })
 }
 

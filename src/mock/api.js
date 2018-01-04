@@ -45,34 +45,68 @@ const projectInfoMap = {
 const project_list = JSON.parse(window.localStorage.getItem('projectlist')) || projectList
 const project_map = JSON.parse(window.localStorage.getItem('projectmap')) || projectInfoMap
 const apimap = JSON.parse(window.localStorage.getItem('apimap')) || {}
-const apilist = []
-for (var key in apimap) {
-  console.log(key)
-  var info = apimap[key]['baseinfo']
-  console.log(info)
-  info['id'] = key
-  apilist.push(info)
-}
-console.log(JSON.stringify(apilist))
+// const apilist = []
+// for (var key in apimap) {
+//   console.log(key)
+//   var info = apimap[key]['baseinfo']
+//   console.log(info)
+//   info['id'] = key
+//   apilist.push(info)
+// }
+// console.log(JSON.stringify(apilist))
 
 export default {
   saveApi: config => {
     var api_info = JSON.parse(config.body)
-
-    var api_id = Date.now().toString()
-    apimap[api_id] = api_info
-
+    if (param2Obj(config.url).id){
+      var api_id = param2Obj(config.url).id
+    }
+    else{
+      var api_id = Date.now().toString()
+    } 
+    apimap[api_id] = api_info  
     window.localStorage.setItem('apimap', JSON.stringify(apimap))
     // const { username } = JSON.parse(config.body)
     return { code: 0, data: {}, message: '保存成功' }
   },
 
-  getApiList: () => ({
+  getApiList: () => {   
+    var apilist = []
+    for(var key in apimap){
+      console.log(key)
+      var info = apimap[key]['baseinfo']
+      info['id'] = key
+      apilist.push(info)    
+    }
+    return {
     code: 0,
     data: {
       items: apilist,
     },
-  }),
+  }},
+
+
+  getApiInfo: config => {
+    //const { id } = param2Obj(config.url) 
+    var api_id = param2Obj(config.url).id
+    console.log('api_id = ',api_id)
+    if (api_id)
+    {
+      console.log(api_id)
+      return {
+        "code": 0,
+        "data": apimap[api_id]['baseinfo']
+      }
+    }
+    else
+    {
+      return {
+        "code": 0,
+        "data": {}
+      }
+    }
+  
+  },
 
   deleteApi: config => {
     var api_id = param2Obj(config.url).id

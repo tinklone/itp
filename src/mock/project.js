@@ -45,15 +45,15 @@ const projectInfoMap = {
 var project_list = JSON.parse(window.localStorage.getItem('projectlist')) || projectList
 var project_map = JSON.parse(window.localStorage.getItem('projectmap')) || projectInfoMap
 var apimap = JSON.parse(window.localStorage.getItem('apimap')) || {}
-var apilist = []
-for (var key in apimap) {
-  console.log(key)
-  var info = apimap[key]['baseinfo']
-  console.log(info)
-  info['id'] = key
-  apilist.push(info)
-}
-console.log(JSON.stringify(apilist))
+// var apilist = []
+// for (var key in apimap) {
+//   console.log(key)
+//   var info = apimap[key]['baseinfo']
+//   console.log(info)
+//   info['id'] = key
+//   apilist.push(info)
+// }
+// console.log(JSON.stringify(apilist))
 
 export default {
   save: config => {
