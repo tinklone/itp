@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input style="width: 200px;" placeholder="接口名称/请求地址" size="mini"></el-input>
-      <el-button type="primary" icon="search" size="mini" plain="">搜索</el-button>
+      <el-button @click='search' type="primary" icon="search" size="mini" plain="">搜索</el-button>
       <el-button @click='toInter("")' type="primary" style="margin-left:600px;">添加接口</el-button>
     </div>
     <div>
@@ -134,7 +134,14 @@ export default {
         this.list = response.data.items.splice(index,1)
         this.listLoading = false
       })
-    }
+    },
+    search(){
+      deleteapi(id).then(response => {
+        console.log(response.message)
+        this.$message(response.message);
+        this.fetchData();
+      })
+    },
   }
 }
 </script>
