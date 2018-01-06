@@ -6,7 +6,12 @@
       <el-button @click='toInter("")' type="primary" style="margin-left:600px;">添加接口</el-button>
     </div>
     <div>
-      <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border highlight-current-row>
+      <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border highlight-current-row
+      :default-sort = "{prop: 'id', order: 'ascending'}"
+      @selection-change="handleSelectionChange"   
+      @row-click="handleclick"
+      :row-class-name = "tableRowClassName"
+      >
       <el-table-column align="center" label='编号' width="160">
         <template slot-scope="scope">
           {{scope.row.id}}
@@ -80,19 +85,20 @@
         </template>
       </el-table-column>
     </el-table>
-  </div> 
-  <div class="block">
+    <div align="center" class="block">
     <span class="demonstration"></span>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :current-page="currentPage"
+      :page-sizes="[10, 20, 30]"
+      :page-size="pagesize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="totalCount" background="true" prev-text="上一页" next-text="下一页">
     </el-pagination>
   </div>
+  </div> 
+  
   </div>
 </template>
 
@@ -106,6 +112,31 @@ export default {
       listLoading: true,
       listAf: [],
       ques:null,
+      pagesize: 10,
+      highlightId: -1,
+      //多选数组
+      multipleSelection: [],
+
+      //搜索条件
+      criteria: '',
+
+      //下拉菜单选项
+      select: '',
+
+      //默认每页数据量
+      pagesize: 10,
+
+      //默认高亮行数据id
+      highlightId: -1,
+
+      //当前页码
+      currentPage: 1,
+
+      //查询的页码
+      start: 1,
+
+      //默认数据总数
+      totalCount: 25,
     }
   },
   filters: {
@@ -122,7 +153,16 @@ export default {
     this.fetchData()
   },
   methods: {
-    fetchData() {
+    // fetchData() {
+    //   location.reload
+    //   this.listLoading = true
+    //   //location.reload();
+    //   getApiList(this.listQuery).then(response => {
+    //     this.list = response.data.items
+    //     this.listLoading = false
+    //   })
+    // },
+    fetchData(criteria,pageNum,pageSize) {
       location.reload
       this.listLoading = true
       //location.reload();
@@ -191,6 +231,32 @@ export default {
       this.listLoading = false
       })
     },
+    //多选响应
+    handleSelectionChange: function(val) {
+        this.multipleSelection = val;
+    },
+    //点击行响应
+    handleclick: function(row, event, column){
+        this.highlightId = row.id;
+    },
+    //改变当前点击的行的class，高亮当前行
+    tableRowClassName: function(row, index){
+        if(row.id == this.highlightId)
+        {
+          return 'info-row';
+        }
+    },
+      //每页显示数据量变更
+    handleSizeChange: function(val) {
+        this.pagesize = val;
+        this.loadData(this.criteria, this.currentPage, this.pagesize);
+    },
+
+    //页码变更
+    handleCurrentChange: function(val) {
+        this.currentPage = val;
+        this.loadData(this.criteria, this.currentPage, this.pagesize);
+    }, 
   }
 }
 </script>
