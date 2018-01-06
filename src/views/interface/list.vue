@@ -27,6 +27,16 @@
           <span>{{scope.row.api_method}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="用例数量" width="160" align="center">
+        <template slot-scope="scope">
+          <span>10</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否覆盖" width="160" align="center">
+        <template slot-scope="scope">
+          <span>是</span>
+        </template>
+      </el-table-column>
       <!-- <el-table-column label="测试用例数" width="160" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.api_method}}</span>
@@ -71,6 +81,18 @@
       </el-table-column>
     </el-table>
   </div> 
+  <div class="block">
+    <span class="demonstration"></span>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400">
+    </el-pagination>
+  </div>
   </div>
 </template>
 

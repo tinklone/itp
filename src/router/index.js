@@ -131,8 +131,35 @@ export const constantRouterMap = [{
       }
     ]
   },
-
- 
+  {
+    path: '/:project_id/other',
+    component: Layout,
+    redirect: '',
+    name: 'other',
+    meta: {
+      title: '其他管理',
+      icon: 'example'
+    },
+    children: [{
+        path: 'test1',
+        name: 'test1',
+        component: _import('other/test'),
+        meta: {
+          title: '其他页面1',
+          icon: 'table'
+        }
+      },
+      {
+        path: 'test2',
+        name: 'test2',
+        component: _import('other/test2'),
+        meta: {
+          title: '其他页面2',
+          icon: 'tree'
+        }
+      }
+    ]
+  },
 
   {
     path: '*',
