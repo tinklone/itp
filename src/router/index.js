@@ -29,6 +29,49 @@ export const constantRouterMap = [{
     hidden: true
   },
   {
+    path: '/userinfo',
+    component: _import('userinfo/detail'),
+    name: 'userinfo',  
+  },
+  {
+    path: '/user',
+    component: _import('user/index'),
+    redirect: 'user/list',
+    name: 'user',
+    meta: {
+      title: '用户管理',
+      icon: 'example'
+    },
+    children: [{
+        path: 'list',
+        name: '用户列表',
+        component: _import('user/index'),
+        meta: {
+          title: '用户列表',
+          icon: 'table'
+        }
+      },
+      // {
+      //   path: 'detail',
+      //   name: '用户信息',
+      //   component: _import('user/detail'),
+      //   meta: {
+      //     title: '用户信息',
+      //     icon: 'tree'
+      //   }
+      // },
+      // {
+      //   path: 'todo',
+      //   name: 'todo',
+      //   component: _import('todo/index'),
+      //   meta: {
+      //     title: 'todo',
+      //     icon: 'tree'
+      //   }
+      //}
+    ]
+  },
+  {
     path: '/projectlist',
     component: _import('project/index'),
     hidden: true
@@ -132,7 +175,6 @@ export const constantRouterMap = [{
     ]
   },
 
- 
 
   {
     path: '*',

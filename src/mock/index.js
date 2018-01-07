@@ -15,7 +15,8 @@ Mock.setup({
 Mock.mock(/\/user\/login/, 'post', loginAPI.loginByUsername)
 Mock.mock(/\/user\/logout/, 'post', loginAPI.logout)
 Mock.mock(/\/user\/info\.*/, 'get', loginAPI.getUserInfo)
-
+Mock.mock(/\/user\/list/, 'get', loginAPI.userList)
+Mock.mock(/\/user\/save/, 'get', loginAPI.userSave)
 
 // 项目相关
 Mock.mock(/\/project\/list/, 'get', projectAPI.getList)
