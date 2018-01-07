@@ -25,3 +25,14 @@ export function editapi(id,baseinfo,params) {
     }
   })
 }
+export function getPageList(criteria,pageNum,pageSize) {
+  return request({
+    url: '/api/page/list',
+    method: 'post',
+    data: {
+      criteria,
+      pageNum,
+      pageSize
+    }
+  })
+}

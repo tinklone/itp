@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="ques" style="width: 200px;" placeholder="接口名称/请求地址" size="mini"></el-input>
-      <el-button @click='search' type="primary" icon="search" size="mini" plain="">搜索</el-button>
+      <el-button @click='searchTo' type="primary" icon="search" size="mini" plain="">搜索</el-button>
       <el-button @click='toInter("")' type="primary" style="margin-left:600px;">添加接口</el-button>
     </div>
     <div>
@@ -59,7 +59,7 @@
       </el-table-column> -->
       <el-table-column label="接口类型" width="160" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.type}}</span>
+          <span v-for="item in scope.row.type">{{item}} </span>
         </template>
       </el-table-column>
       <el-table-column label="接口说明" width="160" align="center">
@@ -94,7 +94,7 @@
       :page-sizes="[10, 20, 30]"
       :page-size="pagesize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="totalCount" background="true" prev-text="上一页" next-text="下一页">
+      :total="totalCount" background="true" total-text="共" prev-text="上一页" next-text="下一页">
     </el-pagination>
   </div>
   </div> 
@@ -103,7 +103,8 @@
 </template>
 
 <script>
-import { getApiList,deleteapi } from '@/api/project'
+import { getApiList,deleteapi } from '@/api/project';
+import { getPageList } from '@/api/interface'
 
 export default {
   data() {
@@ -136,7 +137,7 @@ export default {
       start: 1,
 
       //默认数据总数
-      totalCount: 25,
+      totalCount: 0,
     }
   },
   filters: {
@@ -150,7 +151,7 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.fetchData(this.criteria,this.currentPage,this.pagesize)
   },
   methods: {
     // fetchData() {
@@ -162,12 +163,14 @@ export default {
     //     this.listLoading = false
     //   })
     // },
-    fetchData(criteria,pageNum,pageSize) {
+    fetchData(ques,pageNum,pageSize) {
+      // console.log('criteria = ',criteria,'pageNum = ',pageNum,'pageSize = ',pageSize)
       location.reload
       this.listLoading = true
       //location.reload();
-      getApiList(this.listQuery).then(response => {
+      getPageList(ques,pageNum,pageSize).then(response => {
         this.list = response.data.items
+        this.totalCount = response.data.total
         this.listLoading = false
       })
     },
@@ -249,13 +252,18 @@ export default {
       //每页显示数据量变更
     handleSizeChange: function(val) {
         this.pagesize = val;
-        this.loadData(this.criteria, this.currentPage, this.pagesize);
+        console.log('pagesize = ',this.pagesize)
+        this.fetchData(this.ques,this.currentPage,this.pagesize)
     },
 
     //页码变更
     handleCurrentChange: function(val) {
         this.currentPage = val;
-        this.loadData(this.criteria, this.currentPage, this.pagesize);
+        console.log('currentPage = ',this.currentPage)
+        this.fetchData(this.ques,this.currentPage,this.pagesize)
+    }, 
+    searchTo: function() {
+        this.fetchData(this.ques,this.currentPage,this.pagesize)
     }, 
   }
 }

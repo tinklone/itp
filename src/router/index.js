@@ -160,6 +160,17 @@ export const constantRouterMap = [{
       }
     ]
   },
+  {
+    path: '/dashboard/other',
+    component: Layout,
+    redirect: '',
+    name: 'other',
+    hidden: true,
+    children: [{
+      path: 'test',
+      component: _import('other/test')
+    }]
+  },
 
   {
     path: '*',

@@ -1,5 +1,5 @@
 import {
-  param2Obj
+  param2Obj,JSONLength
 } from '@/utils'
 
 const projectList = [{
@@ -77,7 +77,7 @@ export default {
     // const { username } = JSON.parse(config.body)
     return {"code":0,"data":{},"message":"保存成功"}
   },
-
+  
   saveapi: config => {
     var api_info = JSON.parse(config.body)
     console.log('api_info = ',api_info)
@@ -137,6 +137,103 @@ export default {
     "code": 0,
     "data": {
       "items": apilist
+    }
+  }},
+  getPageList: config => {
+    var api_info = JSON.parse(config.body)
+    console.log('api_info = ',api_info)
+    var criteria = api_info['criteria'],pageNum=api_info['pageNum'],pageSize=api_info['pageSize'];
+    console.log('criteria = ',criteria,'pageNum = ',pageNum,'pageSize = ',pageSize)
+    apimap = JSON.parse(window.localStorage.getItem('apimap'))||{}
+    apilist = []   
+    if (!criteria){ 
+      var ll = JSONLength(apimap)
+      console.log('ll = ',ll)
+      var keys =[]
+      for (var key in apimap){
+        keys.push(key)
+      }
+      console.log('keys = ',keys)
+      var totalPage = Math.ceil(ll/pageSize)
+      console.log('totalPage = ',totalPage)
+      for(var j=0;j<totalPage;j++){
+        var apitemp = []
+        console.log('the page is = ',j)
+        if (totalPage>1 && j<totalPage-1){var size = pageSize}
+        else{
+          if (ll!=0 && ll%pageSize==0){
+            var size = pageSize
+          }
+          else{
+          var size = ll%pageSize}
+        }
+        console.log('--size = ',size)
+        for(var i=0;i<size;i++){
+          // console.log('--key = ',i,key[i])
+          if(j>0){var x = pageSize*j+i}
+          else{var x = i}
+          console.log('x = ',x)
+          var info = apimap[keys[x]]['baseinfo']
+            console.log('info = ',info)
+            info['id'] = key
+            // if(criteria){
+            //   if (info['api_url'].indexOf(criteria)>-1 || info['api_name'].indexOf(criteria)>-1){
+            //     apitemp.push(info)
+            //   }
+            // }
+            // else{
+            apitemp.push(info)//}
+        }
+      console.log('apitemp = ',apitemp)
+      apilist.push(apitemp)
+    }  console.log('apilist = ',apilist)
+      }
+    else{
+      console.log('11')
+      var keys =[]
+      var tempList = [];
+      for (var key in apimap){
+        var tt = apimap[key]['baseinfo']
+        if (tt['api_url'].indexOf(criteria)>-1 || tt['api_name'].indexOf(criteria)>-1){
+        keys.push(key)
+        tempList.push(apimap[key])}
+      }
+      console.log('tt = ',tt,tempList)
+      ll = tempList.length
+      console.log('ll = ',ll)
+      var totalPage = Math.ceil(ll/pageSize)
+      console.log('totalPage = ',totalPage)
+      for(var j=0;j<totalPage;j++){
+        var apitemp = []
+        console.log('the page is = ',j)
+        if (totalPage>1 && j<totalPage-1){var size = pageSize}
+        else{
+          if (ll!=0 && ll%pageSize==0){
+            var size = pageSize
+          }
+          else{
+          var size = ll%pageSize}
+        }
+        console.log('--size = ',size)
+        for(var i=0;i<size;i++){
+          // console.log('--key = ',i,key[i])
+          if(j>0){var x = pageSize*j+i}
+          else{var x = i}
+          console.log('x = ',x)
+          var info = tempList[x]['baseinfo']
+            console.log('info = ',info)
+            info['id'] = key
+            apitemp.push(info)
+        }
+      console.log('apitemp = ',apitemp)
+      apilist.push(apitemp)
+    }  console.log('apilist = ',apilist)
+    }
+    return {
+    "code": 0,
+    "data": {
+      "items": apilist[pageNum-1],
+      "total": keys.length
     }
   }},
   getInfo: config => {

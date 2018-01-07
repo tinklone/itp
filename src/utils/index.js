@@ -115,6 +115,15 @@ export function param2Obj(url) {
   return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
 }
 
+export function JSONLength(obj) {
+  var size = 0, key;
+  for (key in obj) {
+  if (obj.hasOwnProperty(key)) size++;
+  console.log('size = ',size)
+  }
+  return size;
+  }
+
 export function html2Text(val) {
   const div = document.createElement('div')
   div.innerHTML = val
