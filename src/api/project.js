@@ -38,11 +38,12 @@ export function saveapi(baseinfo,params) {
   })
 }
 
-export function deleteapi(id) {
+export function deleteapi(idlist) {
+  console.log('idlist = ',idlist)
   return request({
     url: '/api/delete',
-    method: 'get',
-    params:{id}
+    method: 'post',
+    data:{idlist}
   })
 }
 

@@ -3,7 +3,8 @@
     <div class="filter-container">
       <el-input v-model="ques" style="width: 200px;" placeholder="接口名称/请求地址" size="mini"></el-input>
       <el-button @click='searchTo' type="primary" icon="search" size="mini" plain="">搜索</el-button>
-      <el-button @click='toInter("")' type="primary" style="margin-left:600px;">添加接口</el-button>
+      <el-button @click='toInter("")' type="primary" size="mini" style="margin-left:550px;">添加接口</el-button>
+      <el-button type="primary" @click="deletenames" size="mini" style="color:white；margin-left:200px;">批量删除</el-button>
     </div>
     <div>
       <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border highlight-current-row
@@ -12,7 +13,9 @@
       @row-click="handleclick"
       :row-class-name = "tableRowClassName"
       >
-      <el-table-column align="center" label='编号' width="160">
+      <el-table-column type="selection">
+      </el-table-column>
+      <el-table-column align="center" label='编号' >
         <template slot-scope="scope">
           {{scope.row.id}}
         </template>
@@ -22,22 +25,22 @@
           {{scope.row.api_url}}
         </template>
       </el-table-column>
-      <el-table-column label="接口名称" width="160" align="center">
+      <el-table-column label="接口名称" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.api_name}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="请求方式" width="160" align="center">
+      <el-table-column label="请求方式" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.api_method}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="用例数量" width="160" align="center">
+      <el-table-column label="用例数量" align="center">
         <template slot-scope="scope">
           <span>10</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否覆盖" width="160" align="center">
+      <el-table-column label="是否覆盖" align="center">
         <template slot-scope="scope">
           <span>是</span>
         </template>
@@ -57,12 +60,12 @@
           <span>{{scope.row.api_method}}</span>
         </template>
       </el-table-column> -->
-      <el-table-column label="接口类型" width="160" align="center">
+      <el-table-column label="接口类型" align="center">
         <template slot-scope="scope">
           <span v-for="item in scope.row.type">{{item}} </span>
         </template>
       </el-table-column>
-      <el-table-column label="接口说明" width="160" align="center">
+      <el-table-column label="接口说明" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.desc}}</span>
         </template>
@@ -170,6 +173,7 @@ export default {
       //location.reload();
       getPageList(ques,pageNum,pageSize).then(response => {
         this.list = response.data.items
+        console.log("--this.list = ",this.list)
         this.totalCount = response.data.total
         this.listLoading = false
       })
@@ -186,10 +190,13 @@ export default {
       // })
     },
     removeRow(id){
-      deleteapi(id).then(response => {
+      console.log("--id = ",id)
+      var array = []
+      array.push(id)
+      deleteapi(array).then(response => {
         console.log(response.message)
         this.$message(response.message);
-        this.fetchData();
+        this.fetchData(this.criteria,this.currentPage,this.pagesize);
       })
     },
     removes(index){
@@ -202,6 +209,7 @@ export default {
         this.listLoading = false
       })
     },
+    
     search(){
       location.reload
       this.listLoading = true
@@ -232,6 +240,24 @@ export default {
       console.log('this.listAf = ',this.listAf)
       
       this.listLoading = false
+      })
+    },
+    //多项删除
+    deletenames: function(){
+        if(this.multipleSelection.length==0){
+          this.$message('请先勾选至少一项')
+          return;
+        }     
+        console.log('this.multipleSelection = ',this.multipleSelection)     
+        var array = [];
+        this.multipleSelection.forEach((item) => {
+          console.log('item.id = ',item.id)
+            array.push(item.id);
+        })
+        deleteapi(array).then(response => {
+        console.log(response.message)
+        this.$message(response.message);
+        this.fetchData(this.criteria,this.currentPage,this.pagesize);
       })
     },
     //多选响应

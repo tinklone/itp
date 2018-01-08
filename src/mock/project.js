@@ -46,6 +46,7 @@ const project_map = JSON.parse(window.localStorage.getItem('projectmap')) || pro
 // var apimap = JSON.parse(window.localStorage.getItem('apimap')) ||  {}
 var apimap = {}
 var apilist = []
+var count = 0
 // for(var key in apimap){
 //   console.log(key)
 //   var info = apimap[key]['baseinfo']
@@ -81,7 +82,10 @@ export default {
   saveapi: config => {
     var api_info = JSON.parse(config.body)
     console.log('api_info = ',api_info)
-    var api_id = Date.now().toString()
+    // var api_id = Date.now().toString()
+    count = count +1
+    var api_id = count
+    console.log('api_id = ',api_id)
     apimap[api_id] = api_info
     console.log('apimap = ',apimap)
     window.localStorage.setItem('apimap', JSON.stringify(apimap))
@@ -106,6 +110,18 @@ export default {
     var api_id = param2Obj(config.url).id
     console.log(api_id)
     delete apimap[api_id]
+    window.localStorage.setItem('apimap', JSON.stringify(apimap))
+    // const { username } = JSON.parse(config.body)
+    return {"code":0,"data":{},"message":"删除成功"}
+  },
+  deleteapis: config => {
+    console.log('ss = ',config.body)
+    var api_idlist = JSON.parse(config.body).idlist
+    console.log(api_idlist)
+    for(var i in api_idlist){
+    console.log('i = ',i)
+    console.log('api_idlist[i] = ',api_idlist[i])
+    delete apimap[api_idlist[i]]}
     window.localStorage.setItem('apimap', JSON.stringify(apimap))
     // const { username } = JSON.parse(config.body)
     return {"code":0,"data":{},"message":"删除成功"}
@@ -165,8 +181,7 @@ export default {
             var size = pageSize
           }
           else{
-          var size = ll%pageSize}
-        }
+          var size = ll%pageSize}}
         console.log('--size = ',size)
         for(var i=0;i<size;i++){
           // console.log('--key = ',i,key[i])
@@ -175,7 +190,7 @@ export default {
           console.log('x = ',x)
           var info = apimap[keys[x]]['baseinfo']
             console.log('info = ',info)
-            info['id'] = key
+            info['id'] = keys[x]
             // if(criteria){
             //   if (info['api_url'].indexOf(criteria)>-1 || info['api_name'].indexOf(criteria)>-1){
             //     apitemp.push(info)
@@ -222,7 +237,7 @@ export default {
           console.log('x = ',x)
           var info = tempList[x]['baseinfo']
             console.log('info = ',info)
-            info['id'] = key
+            info['id'] = keys[x]
             apitemp.push(info)
         }
       console.log('apitemp = ',apitemp)
