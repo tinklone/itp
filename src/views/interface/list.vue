@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="ques" style="width: 200px;" placeholder="接口名称/请求地址" size="mini"></el-input>
-      <el-button @click='searchTo' type="primary" icon="search" size="mini" plain="">搜索</el-button>
-      <el-button @click='toInter("")' type="primary" size="mini" style="margin-left:550px;">添加接口</el-button>
-      <el-button type="primary" @click="deletenames" size="mini" style="color:white；margin-left:200px;">批量删除</el-button>
+      <el-input v-model="ques" style="width: 400px;" placeholder="接口名称/请求地址" size="mini"></el-input>
+      <el-button @click='searchTo' type="primary" icon="el-icon-search" size="mini" plain="" >搜索</el-button>
+      <el-button @click='toInter("")' type="primary" size="mini" round style="margin-left:550px;" icon="el-icon-circle-plus-outline">添加接口</el-button>
+      <el-button type="primary" @click="deletenames" size="mini" style="color:white；margin-left:200px;"  round >批量删除</el-button>
     </div>
     <div>
       <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border highlight-current-row
@@ -71,9 +71,11 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" width="160" align="center">
-        <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click='removeRow(scope.row.id)' plain>删除</el-button>
-          <el-button type="primary" size="mini" @click='toInter(scope.row.id)' plain>编辑</el-button>
+        <template slot-scope="scope">  
+          <el-button-group>        
+          <el-button type="primary" size="mini" @click='toInter(scope.row.id)' icon="el-icon-edit"></el-button>
+          <el-button type="danger" size="mini" @click='removeRow(scope.row.id)' icon="el-icon-delete"></el-button>
+          </el-button-group>
           <!-- <el-dropdown>
             <span class="el-dropdown-link">
               操作<i class="el-icon-arrow-down el-icon--right"></i>

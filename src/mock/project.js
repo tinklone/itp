@@ -82,13 +82,14 @@ export default {
   saveapi: config => {
     var api_info = JSON.parse(config.body)
     console.log('api_info = ',api_info)
-    // var api_id = Date.now().toString()
-    count = count +1
-    var api_id = count
+    var api_id = Date.now().toString()
+    // count = count +1
+    // var api_id = count
     console.log('api_id = ',api_id)
     apimap[api_id] = api_info
     console.log('apimap = ',apimap)
     window.localStorage.setItem('apimap', JSON.stringify(apimap))
+    // window.localStorage.setItem('count', count)
     // const { username } = JSON.parse(config.body)
     return {"code":0,"data":{},"message":"新增成功"}
   },
