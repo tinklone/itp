@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-input v-model="ques" style="width: 400px;" placeholder="接口名称/请求地址" size="mini"></el-input>
       <el-button @click='searchTo' type="primary" icon="el-icon-search" size="mini" plain="" >搜索</el-button>
-      <el-button @click='toInter("")' type="primary" size="mini" round style="margin-left:550px;" icon="el-icon-circle-plus-outline">添加接口</el-button>
+      <el-button @click='toInter("")' type="primary" size="mini" round style="margin-left:200px;" icon="el-icon-circle-plus-outline">添加接口</el-button>
       <el-button type="primary" @click="deletenames" size="mini" style="color:white；margin-left:200px;"  round >批量删除</el-button>
     </div>
     <div>

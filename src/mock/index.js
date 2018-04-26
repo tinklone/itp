@@ -34,8 +34,14 @@ Mock.mock(/\/api\/page\/list/, 'post', projectAPI.getPageList)
 
 //Mock.mock(/\/api\/detail/, 'get', apiApi.getApiList)
 
-// 表格相关
+// 用例相关
 Mock.mock(/\/table\/list/, 'get', tableAPI.getList)
+Mock.mock(/\/table\/saveStepName/, 'post', tableAPI.saveStepName)
+Mock.mock(/\/table\/getStepValue/, 'post', tableAPI.getStepValue)
+Mock.mock(/\/table\/saveCaseInfo/, 'post', tableAPI.saveCaseInfo)
+Mock.mock(/\/table\/getCaseValue/, 'post', tableAPI.getCaseValue)
+Mock.mock(/\/table\/saveStepInfo/, 'post', tableAPI.saveStepInfo)
+
 
 // 文章相关
 Mock.mock(/\/article\/list/, 'get', articleAPI.getList)

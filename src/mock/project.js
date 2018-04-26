@@ -82,6 +82,7 @@ export default {
   saveapi: config => {
     var api_info = JSON.parse(config.body)
     console.log('api_info = ',api_info)
+    console.log('config.url = ',config.url)
     var api_id = Date.now().toString()
     // count = count +1
     // var api_id = count

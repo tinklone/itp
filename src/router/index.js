@@ -107,7 +107,7 @@ export const constantRouterMap = [{
         name: 'Table',
         component: _import('table/index'),
         meta: {
-          title: '测试用例',
+          title: '测试用例列表',
           icon: 'table'
         }
       },
@@ -121,14 +121,29 @@ export const constantRouterMap = [{
         }
       },
       {
-        path: 'todo',
-        name: 'todo',
-        component: _import('todo/index'),
+        path: 'addcase',
+        name: '添加用例',
+        component: _import('table/addcase'),
         meta: {
-          title: 'todo',
-          icon: 'tree'
-        }
-      }
+          title: '添加用例',
+          icon: 'table'
+        },
+      },
+      //   children:[{
+      //     path: 'info',
+      //     name: '步骤信息',
+      //     component: _import('table/info'),
+      // }] 
+      {
+          path: 'info',
+          name: '步骤信息',
+          component: _import('table/info'),
+          meta: {
+            title: '步骤信息',
+          },
+          hidden: true
+      },
+      
     ]
   },
   {

@@ -1,4 +1,4 @@
-import { param2Obj } from '@/utils'
+import { param2Obj,getCookie,timestampToTime } from '@/utils'
 
 const userMap = {
   admin: {
@@ -23,7 +23,9 @@ const userMap = {
     name: '工程师小王'
   }
 }
-
+var id = 1
+var stepList = []
+var caseList = []
 export default {
   getList: () => (
     {
@@ -88,5 +90,80 @@ export default {
         }]
       }
     }
-  )
+  ),
+  saveStepName: config => {
+
+    var stepMap= {}
+    var name = JSON.parse(config.body).name
+    var step = 'step'+id.toString()
+    id +=1
+    // console.log('step = ',step)
+    console.log('name = ',name)
+    stepMap['stepId'] = step
+    stepMap['name'] = name
+    // console.log('stepMap = ',stepMap)
+    stepList.push(stepMap)
+    // console.log('stepList = ',stepList)
+    window.localStorage.setItem('stepList', JSON.stringify(stepList))
+    return {"code":0,"data":{},"message":"添加成功"}
+  },
+  getStepValue: config => {
+    var tempList = JSON.parse(window.localStorage.getItem('stepList'))||[]
+    return {
+      "code": 0,
+      "data": {
+        "items": tempList
+      }
+    }
+  },
+  saveCaseInfo: config => {
+    console.log(111)
+    var caseMap= {}
+    var temp = JSON.parse(config.body).caseInfo
+    var other = JSON.parse(config.body).other
+    var user = getCookie('Admin-Token')
+    console.log('user = ',user)
+    temp['stepNum']=other.length
+    temp['id']= Date.now().toString()
+    temp['user']= user
+    temp['time']=timestampToTime(Date.now())
+    console.log('temp = ',temp)
+    caseList.push(temp)
+    window.localStorage.setItem('caseList', JSON.stringify(caseList))
+    console.log('caseList = ',caseList)
+    window.localStorage.removeItem('stepList', JSON.stringify(stepList))
+    stepList = []
+    return {"code":0,"data":{},"message":"添加成功"}
+  },
+  getCaseValue: config => {
+    var tempList = JSON.parse(window.localStorage.getItem('caseList'))||[]
+    return {
+      "code": 0,
+      "data": {
+        "items": tempList
+      }
+    }
+  },
+  deleteStep: config => {
+    var tempList = JSON.parse(window.localStorage.getItem('caseList'))||[]
+    return {
+      "code": 0,
+      "data": {
+        "items": tempList
+      }
+    }
+  },
+  saveStepInfo: config => {
+    // var tempList = JSON.parse(window.localStorage.getItem('caseList'))||[]
+    console.log('-----')
+    var stepInfo = JSON.parse(config.body).stepInfo
+    console.log('stepInfo = ',stepInfo)
+    return {
+      "code": 0,
+      "data": {
+        "items": []
+      },
+      "msg":'213'
+    }
+  },
 }

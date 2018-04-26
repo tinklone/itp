@@ -7,6 +7,8 @@ import router from './router'
 import store from './store'
 import '@/icons' // icon
 import '@/permission' // 权限
+import '@/styles/element-ui.scss'
+
 import './mock'  // 该项目所有请求使用mockjs模拟
 
 Vue.use(ElementUI, { locale })
